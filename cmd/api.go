@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"event-booking/internal/api"
+	"fiber-onion-boiler-plate/internal/api"
 
 	"github.com/spf13/cobra"
 )
