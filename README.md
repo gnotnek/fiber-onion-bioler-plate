@@ -12,7 +12,7 @@ This is a boilerplate project for building web applications using the Fiber fram
 
 1. Clone the repository:
     ```sh
-    git clone https://github.com/yourusername/fiber-onion-boilerplate.git
+    git clone https://github.com/gnotnek/fiber-onion-boilerplate.git
     cd fiber-onion-boilerplate
     ```
 
