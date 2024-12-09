@@ -1,8 +1,9 @@
 package health
 
 import (
-	"event-booking/internal/entity"
-	"event-booking/internal/health/mocks"
+	"context"
+	"fiber-onion-boiler-plate/internal/entity"
+	"fiber-onion-boiler-plate/internal/health/mocks"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -18,9 +19,17 @@ func TestCheck(t *testing.T) {
 		expectedHealthy       bool
 	}{
 		{
+			name:                  "database healthy",
+			mockDatabaseError:     nil,
+			expectedDatabaseState: entity.HealthStateOK,
+			expectedRedisState:    entity.HealthStateOK,
+			expectedHealthy:       true,
+		},
+		{
 			name:                  "database unhealthy",
 			mockDatabaseError:     assert.AnError,
 			expectedDatabaseState: entity.HealthStateFail,
+			expectedRedisState:    entity.HealthStateOK,
 			expectedHealthy:       false,
 		},
 	}
@@ -31,7 +40,7 @@ func TestCheck(t *testing.T) {
 			mockRepo.On("CheckDatabase", mock.Anything).Return(tt.mockDatabaseError).Once()
 
 			svc := &Service{repo: mockRepo}
-			healthComponent, isHealthy := svc.Check()
+			healthComponent, isHealthy := svc.Check(context.Background())
 
 			assert.Equal(t, tt.expectedDatabaseState, healthComponent.Database)
 			assert.Equal(t, tt.expectedHealthy, isHealthy)

@@ -15,6 +15,7 @@ func Execute() {
 	}
 
 	command.AddCommand(apiCmd())
+	command.AddCommand(cronCmd())
 
 	if err := command.Execute(); err != nil {
 		log.Fatal().Err(err).Msg("could not execute command")

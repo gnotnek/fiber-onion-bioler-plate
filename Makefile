@@ -5,7 +5,8 @@ tidy:
 
 .PHONY: build
 build:
-	go build -o /tmp/bin/app main.go
+	mkdir -p tmp/bin
+	go build -o tmp/bin/app.exe main.go
 
 .PHONY: run
 run: build
